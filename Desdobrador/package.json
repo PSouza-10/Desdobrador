@@ -1,0 +1,26 @@
+{
+  "name": "psychohelp",
+  "version": "1.0.0",
+  "description": "App for psichological evaluation and emotional support",
+  "main": "server.js",
+  "scripts": {
+    "server": "nodemon server.js",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "client": "npm start --prefix client"
+  },
+  "author": "Paulo H. de Souza",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "concurrently": "^5.1.0",
+    "config": "^3.2.5",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.8.11",
+    "nodemon": "^2.0.2"
+  },
+  "engines": {
+    "node": "10.16.2"
+  }
+}
