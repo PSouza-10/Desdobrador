@@ -4,12 +4,16 @@ const Schema = mongoose.Schema
 
 const GameSchema =  new Schema ({
     matrix : { 
-        type : [Number],
+        type : [[Number]],
         required :true
     },
-    initialArr : {
+    vector : {
         type : [Number],
         required : true
+    },
+    type:{
+        type : Number,
+        required: true
     },
     name : {
         type :String,

@@ -17,8 +17,6 @@ const UserSchema = new Schema({
     },
     password: {
         type :String,
-        minlength:8,
-        maxlength: 15,
         required : true
         
     } 

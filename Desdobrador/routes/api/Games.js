@@ -8,16 +8,21 @@ const User = require('../../models/User')
 
 router.post('/',auth,(req,res) => {
     
-    const {matriz,dezenas,name} = req.body
+    const {matrix,vector,name} = req.body
 
-    if(!matriz || !dezenas ){
+
+    if(!matrix || !vector || !name ){
         return res.status(400).json({msg :"Dados Incompletos"})
     }
+
+    const type = vector.lenght
 
     const jogoNovo = new Jogo({
         matriz,
         dezenas,
-        name
+        type,
+        name,
+        user : req.user
     })
 
     jogoNovo.save().then(jogo => {
@@ -39,6 +44,8 @@ router.put('/:id',auth,(req,res) => {
 router.get('/',auth,(req,res) => {
     
     Jogo.find({user : req.user },(docs,err)=>{
+        if (err) throw err
+        
         if(!docs) return res.json({msg:"Nenhum jogo para mostrar"})
         
         return res.send(docs)
