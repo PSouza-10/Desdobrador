@@ -2,7 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const path = require('path')
 const config = require('config')
-const Games = require('./routes/api/jogos')
+const Games = require('./routes/api/Games')
 const cors = require('cors')
 const auth = require('./routes/api/auth')
 

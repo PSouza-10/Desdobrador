@@ -1,10 +1,10 @@
 const express = require('express')
 const router = express.Router()
-const bcrypt = require('bcryptjs')
+
 const config = require('config')
 const jwt = require('jsonwebtoken')
 const auth = require('../../middleware/auth')
-const CalcAge =  require('../../middleware/Age')
+
 const User = require('../../models/User')
 
 router.post('/', (req,res) => {
