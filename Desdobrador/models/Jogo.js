@@ -11,9 +11,9 @@ const GameSchema =  new Schema ({
         type : [Number],
         required : true
     },
-    type:{
-        type : Number,
-        required: true
+    tipo:{
+        type : Number
+        
     },
     name : {
         type :String,

@@ -15,14 +15,15 @@ router.post('/',auth,(req,res) => {
         return res.status(400).json({msg :"Dados Incompletos"})
     }
 
-    const type = vector.lenght
+    console.log(req.body)
+    const tipo = vector.lenght
 
     const jogoNovo = new Jogo({
-        matriz,
-        dezenas,
-        type,
+        matrix,
+        vector,
+        tipo,
         name,
-        user : req.user
+        user
     })
 
     jogoNovo.save().then(jogo => {
@@ -41,9 +42,9 @@ router.put('/:id',auth,(req,res) => {
     
 })
 
-router.get('/',auth,(req,res) => {
+router.get('/:id',auth,(req,res) => {
     
-    Jogo.find({user : req.user },(docs,err)=>{
+    Jogo.find({user : req.params.id },(docs,err)=>{
         if (err) throw err
         
         if(!docs) return res.json({msg:"Nenhum jogo para mostrar"})
