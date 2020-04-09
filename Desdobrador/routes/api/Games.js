@@ -15,7 +15,7 @@ router.post('/',auth,(req,res) => {
         return res.status(400).json({msg :"Dados Incompletos"})
     }
 
-    console.log(req.body)
+    
     const tipo = vector.lenght
 
     const jogoNovo = new Jogo({
@@ -33,18 +33,32 @@ router.post('/',auth,(req,res) => {
 })
 
 router.delete('/:id',auth ,(req,res) => {
-    
+    const id = req.params.id
+
+    Jogo.findByIdAndDelete(id,(err,doc)=>{
+        if(err) throw err
+
+        return res.json({id : doc._id})
+    })
 })
 
 router.put('/:id',auth,(req,res) => {
     
+    const id = req.params.id
+    
 
+    Jogo.findByIdAndUpdate(id,req.body,{useFindAndModify : false, new : true},(err,doc)=>{
+        // if (err) throw err
+
+        console.log(doc)
+        return res.send(doc)
+    })
     
 })
 
 router.get('/:id',auth,(req,res) => {
     
-    Jogo.find({user : req.params.id },(docs,err)=>{
+    Jogo.find({user : req.params.id },(err,docs)=>{
         if (err) throw err
         
         if(!docs) return res.json({msg:"Nenhum jogo para mostrar"})
