@@ -16,8 +16,8 @@ router.post('/',auth,(req,res) => {
     }
 
     
-    const tipo = vector.lenght
-
+    const tipo = vector.length
+ 
     const jogoNovo = new Jogo({
         matrix,
         vector,
@@ -48,9 +48,9 @@ router.put('/:id',auth,(req,res) => {
     
 
     Jogo.findByIdAndUpdate(id,req.body,{useFindAndModify : false, new : true},(err,doc)=>{
-        // if (err) throw err
+        if (err) throw err
 
-        console.log(doc)
+        
         return res.send(doc)
     })
     

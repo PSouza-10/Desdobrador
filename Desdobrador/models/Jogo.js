@@ -12,13 +12,14 @@ const GameSchema =  new Schema ({
         required : true
     },
     tipo:{
-        type : Number
+        type : Number,
+        required : true
         
     },
     name : {
         type :String,
-        default : "Desdobramento",
-        unique : true
+        default : "Desdobramento"
+       
     },
     user : {
         type : String,
