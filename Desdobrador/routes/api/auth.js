@@ -77,7 +77,7 @@ router.post('/user',(req,res) => {
                         jwt.sign(
                             {id: New.id},
                             config.get('jwtSecret'),
-                            {expiresIn: 3600},
+                            {expiresIn: '2 hours'},
                             (err,token)=>{
                                 if(err) throw err;
                                 res.json({
