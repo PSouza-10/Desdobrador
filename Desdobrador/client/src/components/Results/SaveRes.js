@@ -7,21 +7,21 @@ import {
     ModalHeader,
     Input,
     Label,
-    Alert
+    Alert,
+    Badge
     
 } from 'reactstrap'
 import {clearErrors} from '../../actions/errorActions'
-import {postGame} from '../../actions/gameActions'
+import {postRes} from '../../actions/resActions'
 import PropTypes from 'prop-types'
-import MyGames from './MyGames';
 
 
-class Games extends Component {
+class SaveRes extends Component {
     constructor(props) {
         super(props);
         
         this.state = {
-            gameName : "",
+            resName : "",
             Modal : false,
             msg: null,
             c : "danger"
@@ -37,10 +37,10 @@ class Games extends Component {
     componentDidUpdate(prevProps, prevState) {
         
         if(prevProps.error !== this.props.error ){
-            if(this.props.error.id === 'GAME_post_FAIL'){
+            if(this.props.error.id === 'RES_post_FAIL'){
                 this.setState ({msg : this.props.error.msg.msg,c:"danger"})
             }
-            if(this.props.error.id === 'GAME_post_SUCCESS'){
+            if(this.props.error.id === 'RES_post_SUCCESS'){
                 
                 this.setState ({msg : this.props.error.msg,c:"success"})
                 
@@ -68,44 +68,45 @@ class Games extends Component {
   
     Submit(){
         
-        const {matrix,vector} = this.props.Game
-        const name = this.state.gameName
-        const user = this.props.user._id
+        
+        const vector = this.props.res
+        
+        const name = this.state.resName
 
         const game = {
-            matrix,
             vector,
-            name,
-            user
+            name
+          
         }
 
 
-        this.props.postGame(game)
-
+        this.props.postRes(game)
+        
+       
         
     }
   
     render() {
     return (
-            this.props.authenticated ?
+          
             <div>
-                <Button
+                <Badge
                     color="success"
                     onClick={this.toggleModal}
-                    disabled={!this.props.Game.active}
+                    href="#"
                 >
-                    Salvar Jogo
-                </Button>
+                    Salvar Resultado
+                </Badge>
                 <Modal
                     toggle={this.toggleModal}
                     isOpen={this.state.Modal}
                     size="sm"
                 >
-                    <ModalHeader toggle={this.toggleModal}>Salvar Jogo</ModalHeader>
+                    <ModalHeader toggle={this.toggleModal}>Salvar Resultado</ModalHeader>
                     <ModalBody>
                         {this.state.msg ? <Alert color={this.state.c}>{this.state.msg}</Alert> : null }
-                        <Label for="gameName">Nome do jogo</Label>
-                        <Input type="text" name="gameName" value={this.state.gameName} onChange={this.onChange}></Input>
+                        <Label for="resName">Nome do resultado</Label>
+                        <Input type="text" name="resName" value={this.state.resName} onChange={this.onChange}></Input>
                         <center><Button
                             className="mt-2"
                             color="success"
@@ -114,9 +115,8 @@ class Games extends Component {
                     </ModalBody>
                 </Modal>
                 
-                <MyGames/>
             </div>
-            : <Alert color="danger">Entre em uma conta para salvar jogos</Alert>
+            
            
             
     )
@@ -124,23 +124,22 @@ class Games extends Component {
 
 }
 
-Games.propTypes = {
-    postGame : PropTypes.func.isRequired,
+SaveRes.propTypes = {
+    postRes : PropTypes.func.isRequired,
     clearErrors : PropTypes.func.isRequired,
     user : PropTypes.object,
     error : PropTypes.object.isRequired,
     authenticated : PropTypes.bool,
-    Game : PropTypes.object,
 }
 
 
 const mapStateToProps = state => ({
     user : state.Auth.user,
     authenticated : state.Auth.authenticated,
-    error : state.Error,
-    Game : state.Display
+    error : state.Error
+    
 });
 
 
 
-export default connect(mapStateToProps,{postGame,clearErrors})(Games);
+export default connect(mapStateToProps,{postRes,clearErrors})(SaveRes);

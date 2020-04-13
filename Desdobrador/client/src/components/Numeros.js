@@ -1,17 +1,11 @@
 import React , {Component} from 'react';
 import{Table} from 'reactstrap'
+import PropTypes from 'prop-types'
+import {connect} from 'react-redux'
 
 class Numeros extends Component {
     
-    constructor(props) {
-        super(props);
-        
-        this.state = {
-            match : []
-        }
-
-       
-    }
+   
 
    
     
@@ -43,18 +37,18 @@ class Numeros extends Component {
 
         return(
             
-            <div style={{maxHeight:"80vh",overflowY:'auto'}}>    
+            <div style={{maxHeight:"90vh",overflowY:'auto'}}>    
             <Table bordered hover style={{width:'66vw'}}>
                 <tbody>
                     
                     {
-                        this.props.res[0]  ?
+                        this.props.Display.result[0]  ?
                         
                         <tr style={{backgroundColor:"blue",color:"white"}}>
                             <td>Res : </td>
                                 {
 
-                                    this.props.res.map((n,index) => (
+                                    this.props.Display.result.map((n,index) => (
 
                                         <td style={{padding:"0rem",margin:"0px0px"}}>
                                             {n }
@@ -72,9 +66,9 @@ class Numeros extends Component {
                     }   
                     {
                         
-                        
+                        this.props.Display.matrix.length > 1 ? 
 
-                        this.props.arr.map((v,index) => (
+                        this.props.Display.matrix.map((v,index) => (
                             
                             <tr >
                                 <td style={{
@@ -84,7 +78,7 @@ class Numeros extends Component {
                                 {
                                     
                                     
-                                    this.props.arr[index].map(n => (
+                                    this.props.Display.matrix[index].map(n => (
                                         <td
                                             
                                         >
@@ -94,9 +88,11 @@ class Numeros extends Component {
 
                                 }
                                 
-                                <td style={acStyle(this.props.ac[index])}>{this.props.ac[index]}</td>
+                                <td style={acStyle(this.props.Display.points[index])}>{this.props.Display.points[index]}</td>
                             </tr>
-                        ))
+                        )) 
+                        :
+                        null
                     }
                     
                 </tbody>
@@ -107,6 +103,13 @@ class Numeros extends Component {
     }
 } 
 
+Numeros.propTypes = {
+    Display : PropTypes.object
 
+}
 
-export default Numeros
+const mapStateToProps = state => ({
+  Display : state.Display
+});
+
+export default connect(mapStateToProps,{})(Numeros)

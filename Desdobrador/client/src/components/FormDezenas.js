@@ -3,22 +3,20 @@ import {
     FormGroup,
     Input,
     Label,
-    Col,
     Row,
     Container,
     Button,
     Badge,
     CustomInput,
-    Alert
+
 
 } from 'reactstrap'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
-import MyGames from './Games/MyGames'
-import Numeros from './Numeros'
 import desdobrador from '../func'
-import GameOptions from './Games/GameOptions'
-
+import SaveRes from './Results/SaveRes'
+import MyRes from './Results/MyRes'
+import {setDisplayGame} from '../actions/displayActions'
 
 
 
@@ -29,18 +27,14 @@ class FormDezenas extends Component {
         this.state = {
             nums : [],
             numExtra : null, 
-            matriz : [],
             quantos : 0,
-            resultado: "",
-            res : [],
-            acertos : [],
-            ready : true
+            resultado: ""
+        
         }
 
         this.onChange = this.onChange.bind(this) 
         this.sendNums = this.sendNums.bind(this)
         this.changeExtra = this.changeExtra.bind(this) 
-        this.conferir = this.conferir.bind(this)
         this.Limpar = this.Limpar.bind(this)
     }
 
@@ -78,60 +72,30 @@ class FormDezenas extends Component {
     }
 
     sendNums(){
-        
-        let ready =true
+
         let dezenas = this.state.nums.map(x =>{
             return parseInt(x,10)
         })
         let ref = Number(this.state.numExtra)
 
-        if(dezenas.length === 16){
-            ready = false
-        }
+        
         
         let mat = desdobrador(dezenas,ref)
         let resultadoArray = this.state.resultado.split(',').map(x => {
             return parseInt(x,10)
         })
 
-
+        const game = {
+            matrix : mat,
+            vector : dezenas,
+            result : resultadoArray === [] ? null : resultadoArray
+        }
         
+        this.props.setDisplayGame(game)
 
-    
-        this.setState({
-            matriz : mat,
-            res : resultadoArray,
-            ready : ready
-            
-        })
-
-        this.conferir(mat,resultadoArray)
         
     }
 
-    conferir(matriz,resultado){
-        let ac = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-
-      
-
-        matriz.map((line,i) => {
-
-            for(let x =0;x<=14;x++){
-
-                if(line.includes(resultado[x])){ 
-                    console.log(`A linha ${i} inclui ${resultado[x]}`)
-                    ac[i]++
-                }
-            }  
-            return null  
-        })
-
-        this.setState({
-            acertos : ac
-        })
-
-        
-    }
 
     Limpar(){
         document.querySelectorAll('input[type=checkbox]').forEach( el => el.checked = false );
@@ -151,8 +115,7 @@ class FormDezenas extends Component {
     
         return (
             <center>
-                <Row className="mt-2">
-                    <Col xl="3">
+                
 
                         <FormGroup className="ml-2" >
                             <Label for="resultado">
@@ -164,6 +127,27 @@ class FormDezenas extends Component {
                             
                             onChange={this.changeExtra}
                             ></Input>
+                            {this.props.authenticated ? 
+                            
+
+                                <Row className="mt-1  justify-content-around">
+
+                                    <SaveRes res={this.state.resultado.split(',').map(x => {
+                                        return parseInt(x,10)
+                                    })}/>
+
+                                    <MyRes />
+                                </Row>
+                           
+                                
+                                
+                                
+
+                            : 
+
+                            null
+                            
+                            }
                         </FormGroup>
 
                         <Container>
@@ -232,19 +216,10 @@ class FormDezenas extends Component {
                                 >
                                     Desdobrar
                                 </Button>
-                                {   this.props.authenticated ?
-                                    <div>
-                                        <GameOptions matrix={this.state.matriz} vector={this.state.nums} active={this.state.ready}/>
-                                        <MyGames/>
-                                    </div>
-                                    : <Alert color="danger">Entre em uma conta para salvar jogos</Alert>
-                                }
+                                
                         </Container>
-                    </Col>
-                    <Col xl="9">
-                        <Numeros arr={this.state.matriz} res={this.state.res} ac ={this.state.acertos}/>
-                    </Col>
-                </Row>
+                    
+                
 
                
 
@@ -256,14 +231,13 @@ class FormDezenas extends Component {
 
 FormDezenas.propTypes = {
     authenticated : PropTypes.bool,
+    setDisplayGame : PropTypes.func.isRequired,
      
 }
 
 const mapStateToProps = state => ({
     authenticated : state.Auth.authenticated
-    
-   
 });
 
 
-export default connect(mapStateToProps,{})(FormDezenas)
+export default connect(mapStateToProps,{setDisplayGame})(FormDezenas)

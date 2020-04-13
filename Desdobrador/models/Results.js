@@ -14,6 +14,10 @@ const ResultSchema =  new Schema ({
     user : {
         type : String,
         required: true
+    },
+    tipo : {
+        type : Number,
+        required : true
     }
 })
 

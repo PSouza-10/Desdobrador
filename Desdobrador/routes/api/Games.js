@@ -4,7 +4,7 @@ const auth = require('../../middleware/auth')
 
 const Jogo = require('../../models/Jogo')
 const User = require('../../models/User')
-
+const Result = require('../../models/Results')
 
 router.post('/',auth,(req,res) => {
     
@@ -31,6 +31,7 @@ router.post('/',auth,(req,res) => {
     })
 
 })
+
 
 router.delete('/:id',auth ,(req,res) => {
     const id = req.params.id
@@ -69,5 +70,58 @@ router.get('/:id',auth,(req,res) => {
 
 })
 
+//Rotas de resultado
+
+router.post('/resultados',auth,(req,res) => {
+    
+    const {vector,name} = req.body
+    const user = req.user.id
+
+    
+
+    if( !vector || !name || !user ){
+        return res.status(400).json({msg :"Por favor insira o resultado e seu nome"})
+    }
+
+    
+    const tipo = vector.length
+ 
+    const resultadoNovo = new Result({
+        vector,
+        tipo,
+        name,
+        user
+    })
+
+    resultadoNovo.save().then(result => {
+        return res.json(result)
+    })
+
+})
+
+router.delete('/resultados/:id',auth ,(req,res) => {
+    const id = req.params.id
+
+    Result.findByIdAndDelete(id,(err,doc)=>{
+        if(err) throw err
+
+        return res.json(id)
+    })
+})
+
+router.get('/resultados/:type',auth,(req,res) => {
+    
+    const type = req.params.type
+
+   Result.find({'user' : req.user.id},(err,docs) => {
+    
+    if(err) throw err
+
+    if(!docs) return res.json({msg:'No results found'})
+    
+    return res.json(docs)
+   })
+
+})
 
 module.exports = router

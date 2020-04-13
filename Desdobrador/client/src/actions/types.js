@@ -21,6 +21,10 @@ export const RES_post = "RES_post"
 export const RES_post_FAIL = "RES_post_FAIL"
 export const RES_load = "RES_load"
 export const RES_load_FAIL = "RES_load_FAIL"
+export const RES_delete = "RES_delete"
+export const RES_delete_FAIL = "RES_delete_FAIL"
+
+export const DISPLAY_game = "DISPLAY_game"
 
 export const GET_ERRORS = 'GET_ERRORS';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';

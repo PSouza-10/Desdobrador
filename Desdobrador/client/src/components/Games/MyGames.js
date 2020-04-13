@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {getGames,deleteGame,editGame}  from '../../actions/gameActions'
+import {setDisplayGame} from '../../actions/displayActions'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types'
 import {
@@ -41,6 +42,7 @@ class MyGames extends Component {
         this.deleteGame = this.deleteGame.bind(this)
         this.editGame = this.editGame.bind(this)
         this.onChange = this.onChange.bind(this)
+        this.visualizarJogo = this.visualizarJogo.bind(this)
     }
     
     toggleModal(name){
@@ -117,6 +119,20 @@ class MyGames extends Component {
             }
         })
     }
+
+    visualizarJogo(){
+        const {matrix,vector} = this.state.selectedGame
+
+        const game = {
+            matrix,
+            vector,
+            result:null
+        }
+
+        this.props.setDisplayGame(game)
+        this.toggleModal('open')
+
+    }
   
     render() {
         return (
@@ -171,7 +187,7 @@ class MyGames extends Component {
                                                 {
                                                     this.state.selectedGame.matrix.map((v,index) => ( 
                                                         <tr>
-                                                            <td style={{backgroundColor:"#333",color:"white"}}>{index + 1}</td>
+                                                            <td style={{backgroundColor:"#333",color:"white"}}>{(index + 1)+"ª"}</td>
 
                                                             {
                                                                 this.state.selectedGame.matrix[index].map( n => (
@@ -185,7 +201,13 @@ class MyGames extends Component {
                                                         
                                         </Table>   
                                     </div>
-                                    
+                                    <Button
+                                        color="success"
+                                        onClick={this.visualizarJogo}
+                                        className="mr-2"
+                                    >
+                                        Exportar
+                                    </Button>
                                     <Button
                                         color="danger"
                                         onClick={this.deleteGame}
@@ -205,7 +227,7 @@ class MyGames extends Component {
 
                                     this.props.Games.map(game => (
                                         <ListGroupItem
-                                            href="#" action tag="a"
+                                            href="#" action tag="a" key={game.name}
                                             onClick={this.selectGame.bind(this,game)}
                                         >{game.name + " (" + game.tipo +" dezenas)" }</ListGroupItem>
                                     ))
@@ -251,6 +273,7 @@ MyGames.propTypes = {
     getGames : PropTypes.func.isRequired,
     deleteGame : PropTypes.func.isRequired,
     editGame : PropTypes.func.isRequired,
+    setDisplayGame: PropTypes.func.isRequired,
 
 }
 
@@ -263,5 +286,5 @@ const mapStateToProps = state => ({
 
 
 export default connect(
-  mapStateToProps,{getGames,deleteGame,editGame}
+  mapStateToProps,{getGames,deleteGame,editGame,setDisplayGame}
 )(MyGames);
