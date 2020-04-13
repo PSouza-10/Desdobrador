@@ -9,7 +9,8 @@ import {
     ModalBody,
     ModalHeader,
     Card,
-    CardDeck,
+    Col,
+    Row,
     CardBody,
     CardHeader,
     Badge,
@@ -94,12 +95,13 @@ class MyRes extends Component {
                             
                            
                             <div style={{maxHeight:"80vh",overflowY:'auto'}}>
-                                <CardDeck style={{width: "57vw"}}>
+                                <Col style={{width: "57vw"}}>
                                 {
                                     
 
                                     this.props.Res.map((result,index) => (
-                                        <Card key={index} >
+                                        <Row className="mb-2">
+                                            <Card key={index} >
                                             <CardHeader>
                                                 {result.name}
                                             </CardHeader>
@@ -124,10 +126,11 @@ class MyRes extends Component {
                                                 >Deletar</Button>
                                             </CardBody>
                                         </Card>
+                                        </Row>                       
                                     ))
                                     
                                 }
-                                </CardDeck>
+                                </Col>
                             </div>
                            
                         

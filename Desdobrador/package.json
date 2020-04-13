@@ -6,7 +6,8 @@
   "scripts": {
     "server": "nodemon server.js",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "client": "npm start --prefix client"
+    "client": "npm start --prefix client",
+    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
   "author": "Paulo H. de Souza",
   "license": "ISC",

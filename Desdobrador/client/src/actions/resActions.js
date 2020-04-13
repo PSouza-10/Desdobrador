@@ -20,7 +20,7 @@ export const getRes = () => (dispatch,getState) => {
    
     
     axios
-        .get(`http://localhost:5000/api/jogos/resultados`,tokenConfig(getState))
+        .get(`/api/jogos/resultados`,tokenConfig(getState))
         .then(res =>{
             
             dispatch({
@@ -42,7 +42,7 @@ export const postRes = ({vector,name}) => (dispatch,getState) => {
     const body = JSON.stringify({vector,name})
 
 
-    axios.post('http://localhost:5000/api/jogos/resultados',body,tokenConfig(getState))
+    axios.post('/api/jogos/resultados',body,tokenConfig(getState))
     .then(res => {
             dispatch(returnErrors('Sucesso',200, 'RES_post_SUCCESS'))
             dispatch({
@@ -62,7 +62,7 @@ export const postRes = ({vector,name}) => (dispatch,getState) => {
 
 export const deleteRes = (id) => (dispatch,getState) => {
     axios
-        .delete(`http://localhost:5000/api/jogos/resultados/${id}`,tokenConfig(getState))
+        .delete(`/api/jogos/resultados/${id}`,tokenConfig(getState))
         .then(res => dispatch({
                 type: RES_delete,
                 payload : res.data
