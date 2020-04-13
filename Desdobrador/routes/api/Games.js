@@ -57,9 +57,11 @@ router.put('/:id',auth,(req,res) => {
     
 })
 
-router.get('/:id',auth,(req,res) => {
+router.get('/',auth,(req,res) => {
     
-    Jogo.find({user : req.params.id },(err,docs)=>{
+    const user = req.user.id
+
+    Jogo.find({user : user},(err,docs)=>{
         if (err) throw err
         
         if(!docs) return res.json({msg:"Nenhum jogo para mostrar"})
@@ -109,11 +111,11 @@ router.delete('/resultados/:id',auth ,(req,res) => {
     })
 })
 
-router.get('/resultados/:type',auth,(req,res) => {
+router.get('/resultados',auth,(req,res) => {
     
-    const type = req.params.type
+    const id = req.user.id
 
-   Result.find({'user' : req.user.id},(err,docs) => {
+   Result.find({'user' : id},(err,docs) => {
     
     if(err) throw err
 

@@ -17,10 +17,10 @@ import { returnErrors } from './errorActions'
 
 export const getRes = () => (dispatch,getState) => {
     
-    const type = 'results'
+   
     
     axios
-        .get(`http://localhost:5000/api/jogos/resultados/${type}`,tokenConfig(getState))
+        .get(`http://localhost:5000/api/jogos/resultados`,tokenConfig(getState))
         .then(res =>{
             
             dispatch({

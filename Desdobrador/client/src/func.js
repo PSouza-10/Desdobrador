@@ -1,4 +1,4 @@
-export default function desdobrador (dezenas,numExtra){
+export function desdobrador16 (dezenas,numExtra){
 
 var matriz = []
 var adicional = numExtra
@@ -28,18 +28,60 @@ return alinhar(matriz)
 
 }
 
-function alinhar (arr){
+export function desdobrar18 (dezenas,numExtra){
+    var matriz = []
+    var adicional = numExtra
 
-    let array = []
-    let matrix = []
-    for(let k = 0;k<=15;k++){
-        for(let g = 0;g <= 15;g++){
-            array.push(arr[g][k])
-        }
-        matrix.push(array)
-        array = []
+    matriz.push(dezenas)
+
+    
+    matriz.push(trocarDezenas(dezenas))
+    
+    let desdobramento = desdobrar(matriz[1])
+
+    for(let z = 0;z <=7; z++){
+        matriz.push(desdobramento[z])
     }
 
+   
+    let reforco = reforcar(matriz,5)
+    
+    for(let o = 0; o <= 4; o++){
+        matriz.push(reforco[o])
+    }
+    
+    
+    matriz[15] = []
+
+    for(let f = 0;f <= 17; f++){
+        matriz[15].push(adicional)
+    }
+    
+    return alinhar(matriz)
+}
+
+function alinhar (arr){
+    let t = arr[0].length
+    let array = []
+    let matrix = []
+    if(t === 18){
+        for(let k = 0; k < t ; k++){
+            for(let g = 0; g < t-2;g++ ){
+                array.push(arr[g][k])
+            }
+            matrix.push(array)
+            array = []
+        }
+    }else{
+        for(let k = 0;k<=15;k++){
+            for(let g = 0;g <= 15;g++){
+                array.push(arr[g][k])
+            }
+            matrix.push(array)
+            array = []
+        }
+    }
+    
     return matrix
 }
 
@@ -47,7 +89,9 @@ function trocarDezenas (arr){
     
     let newArr = []
     
-    for(let i=0,j=1;i < 15;i+=2,j+=2){
+    let l = arr.length-1
+
+    for(let i=0,j=1;i < l;i+=2,j+=2){
      
         let aux = arr[j]
         newArr[j] = arr[i]
@@ -59,20 +103,23 @@ function trocarDezenas (arr){
     return newArr;
 }
 
-function take14(arr1){
+function take(arr1){
+    
+    
+
     let newArr = []
     let aux = arr1[0]
     let aux2 = arr1[1]
     
-    for(let i=2,j=0;i < 16 && j < 16;i++,j++){
+    for(let i=2,j=0;i < arr1.length && j < arr1.length;i++,j++){
         
         newArr[j] = arr1[i] 
 
         
     }
 
-    newArr[14] = aux
-    newArr[15] = aux2
+    newArr[arr1.length-2] = aux
+    newArr[arr1.length-1] = aux2
 
     return newArr
 }
@@ -80,19 +127,19 @@ function take14(arr1){
 function desdobrar (arr) {
     
     let newArr = []
-    
-    newArr.push(take14(arr))
+    let aux = arr.length === 18 ? 6 : 5
+    newArr.push(take(arr))
     
     let auxArr = newArr[0]
-    for(let p = 0; p <= 5; p++){
+    for(let p = 0; p <= aux; p++){
 
         if(p===0){
 
-            newArr.push(take14(auxArr))
+            newArr.push(take(auxArr))
 
         }else{
 
-            newArr.push(take14(newArr[p]))
+            newArr.push(take(newArr[p]))
         }
         
     }
@@ -103,7 +150,9 @@ function reforcar(arr,linha){
     
     let newArr= []
 
-    for(let x = linha;x<=8;x++){    
+    let f = linha === 3 ? 8 : 9
+
+    for(let x = linha;x<=f;x++){    
 
         
         newArr.push(trocarDezenas(arr[x]))

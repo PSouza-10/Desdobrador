@@ -13,7 +13,7 @@ import {
 } from 'reactstrap'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
-import desdobrador from '../func'
+import {desdobrador16,desdobrar18} from '../func'
 import SaveRes from './Results/SaveRes'
 import MyRes from './Results/MyRes'
 import {setDisplayGame} from '../actions/displayActions'
@@ -78,9 +78,15 @@ class FormDezenas extends Component {
         })
         let ref = Number(this.state.numExtra)
 
+        let mat
+
+        if(this.state.quantos === 16 ){
+            mat = desdobrador16(dezenas,ref)
+        }else{
+            mat = desdobrar18(dezenas,ref)
+        }
         
         
-        let mat = desdobrador(dezenas,ref)
         let resultadoArray = this.state.resultado.split(',').map(x => {
             return parseInt(x,10)
         })
@@ -152,7 +158,8 @@ class FormDezenas extends Component {
 
                         <Container>
 
-                            <center><div style={{color:this.state.quantos !== 16 ? "red":"green",marginBottom:"1%"}}>
+                            <center><div style={{color:this.state.quantos === 16 || this.state.quantos === 18  
+                                ? "green":"red",marginBottom:"1%"}}>
 
                                 {this.state.quantos} números escolhidos <Badge href="#"onClick={this.Limpar} color="danger">Limpar</Badge>
                                 
@@ -210,7 +217,7 @@ class FormDezenas extends Component {
                                 <Button
                                     
                                     onClick={this.sendNums}
-                                    disabled={this.state.quantos === 16 ? false : true}
+                                    disabled={this.state.quantos === 16 || this.state.quantos === 18 ? false : true}
                                     className="mt-2 mb-3"           
                                     color="success"
                                 >

@@ -32,7 +32,7 @@ export const getGames = () => (dispatch,getState) => {
     dispatch(setLoading())
     
     axios
-        .get(`http://localhost:5000/api/jogos/${user._id}`,tokenConfig(getState))
+        .get(`http://localhost:5000/api/jogos`,tokenConfig(getState))
         .then(res =>
             dispatch({
                 type : GAME_load,
