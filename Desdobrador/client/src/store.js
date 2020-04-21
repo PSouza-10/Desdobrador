@@ -10,7 +10,7 @@ const middleware = [thunk]
 const store = createStore(
     rootRed,
     initialState,
-    composeWithDevTools(
+    compose(
         applyMiddleware(...middleware)  
     )
 )
