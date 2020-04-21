@@ -103,8 +103,6 @@ export const deleteUser  = () => (dispatch,getState) => {
         dispatch({
             type : RESET
         })
-    }).catch( err => {
-        dispatch(returnErrors(err.response.data,err.response.status,'DELETE_FAIL'))
     })
 
 } 

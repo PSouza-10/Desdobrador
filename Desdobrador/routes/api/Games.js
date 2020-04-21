@@ -8,10 +8,10 @@ const Result = require('../../models/Results')
 
 router.post('/',auth,(req,res) => {
     
-    const {matrix,vector,name,user} = req.body
+    const {matrix,vector,name} = req.body
+    const user = req.user.id
 
-
-    if(!matrix || !vector || !name || !user ){
+    if(!matrix || !vector || !name  ){
         return res.status(400).json({msg :"Dados Incompletos"})
     }
 

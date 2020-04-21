@@ -36,13 +36,13 @@ class Numeros extends Component {
        }
 
         return(
-            
+            this.props.Display.active ? 
             <div style={{maxHeight:"90vh",overflowY:'auto'}}>    
             <Table bordered hover style={{width:'66vw'}}>
                 <tbody>
                     
                     {
-                        this.props.Display.result[0]  ?
+                        this.props.Display.result[0] ?
                         
                         <tr style={{backgroundColor:"blue",color:"white"}}>
                             <td>Res : </td>
@@ -98,7 +98,8 @@ class Numeros extends Component {
                 </tbody>
             </Table>
             </div>
-            
+            :
+            null
         )
     }
 } 

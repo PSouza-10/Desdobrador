@@ -36,7 +36,7 @@ class  App extends React.Component {
             <Col xl="9">
               
               <Numeros/>
-
+              
             </Col>
           </Row>
           

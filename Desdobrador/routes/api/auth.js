@@ -109,7 +109,7 @@ router.get('/user', auth, (req,res)=>{
 
 router.delete('/',auth,(req,res)=>{
     
-    const user = req.user
+    const user = req.user.id
 
     User.findByIdAndDelete( user, (err,user) =>{
         
