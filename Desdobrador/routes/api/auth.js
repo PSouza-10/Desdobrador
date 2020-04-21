@@ -6,6 +6,8 @@ const jwt = require('jsonwebtoken')
 const auth = require('../../middleware/auth')
 
 const User = require('../../models/User')
+const Jogo = require('../../models/Jogo')
+const Result = require('../../models/Results')
 
 router.post('/', (req,res) => {
     const {password,email} = req.body
@@ -26,7 +28,7 @@ router.post('/', (req,res) => {
                     jwt.sign(
                         {id : user.id},
                         config.get('jwtSecret'),
-                        {expiresIn : 6000},
+                        {expiresIn : '8 hours'},
                         (err, token) => {
                             if(err) throw err;
 
@@ -77,7 +79,7 @@ router.post('/user',(req,res) => {
                         jwt.sign(
                             {id: New.id},
                             config.get('jwtSecret'),
-                            {expiresIn: '2 hours'},
+                            {expiresIn: '8 hours'},
                             (err,token)=>{
                                 if(err) throw err;
                                 res.json({
@@ -106,35 +108,30 @@ router.get('/user', auth, (req,res)=>{
 })
 
 router.delete('/',auth,(req,res)=>{
+    
+    const user = req.user
 
-    User.findByIdAndDelete( req.user, (err,user) =>{
+    User.findByIdAndDelete( user, (err,user) =>{
         
         if (err) throw err
         if (!user) return res.status(400).send('Nenhum usuário encontrado')
 
-        return res.json(
-            {msg:'Usuário deletado com sucesso',
-            id : 'DELETE_USER_SUCCESS'
+        Jogo.deleteMany({'user' : user.id },(err) => {
+            if(err) throw err
+        })
+
+        Result.deleteMany({'user' : user.id },(err) => {
+            if(err) throw err
         })
         
+        return res.json({msg:'Usuário deletado'})
     })
+
+
     
 
 })
-router.put('/',auth,(req,res)=>{
-    const newUser = req.body
-    const id = req.user
 
-    User.findByIdAndUpdate(id,newUser,(err, user) => {
-        if(err) throw err
-        
-        if(!user) return res.status(400).send('No user found')
 
-        user.save().then(()=>{
-            return res.send('Successfully saved')
-        })
-
-    })
-})
 
 module.exports = router

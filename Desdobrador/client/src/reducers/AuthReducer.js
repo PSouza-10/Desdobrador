@@ -6,7 +6,8 @@ import {
     LOGIN_FAIL,
     LOGOUT_SUCCESS,
     REGISTER_SUCCESS,
-    REGISTER_FAIL
+    REGISTER_FAIL,
+    DELETE_SUCCESS
 } from '../actions/types';
 
 const IniState = {
@@ -43,6 +44,7 @@ export default function ( state = IniState, action){
         case LOGIN_FAIL:
         case LOGOUT_SUCCESS:
         case AUTH_ERROR:
+        case DELETE_SUCCESS:
             
             localStorage.removeItem('token')    
             

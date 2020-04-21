@@ -5,7 +5,8 @@ import {
     RES_load,
     RES_load_FAIL,
     RES_post,
-    RES_post_FAIL
+    RES_post_FAIL,
+    RESET
 
 } from '../actions/types'
 
@@ -38,6 +39,9 @@ export default function (state = initialState, action ){
             }   
         case RES_load_FAIL :return{
             Results : []
+        }
+        case RESET : return {
+            state : initialState
         } 
         default : return state;
         

@@ -8,6 +8,7 @@ import {
     GAME_delete_FAIL,
     GAME_delete,
     GAME_loading,
+    RESET
 } from '../actions/types'
 
 const initialState = {
@@ -51,7 +52,9 @@ export default function (state = initialState, action ){
             Games : [],
             loading : false
         }
-
+        case RESET : return {
+            state : initialState
+        }
         default : return state;
         
     }

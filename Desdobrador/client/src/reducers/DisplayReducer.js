@@ -1,6 +1,7 @@
 import { 
     
     DISPLAY_game,
+    RESET
 } from '../actions/types'
 
 const initialState = {
@@ -45,7 +46,9 @@ export default function (state = initialState, action ){
                     active : true
                 }
             }
-        
+        case RESET : return {
+            state : initialState
+        }
         
         default : return state;
         

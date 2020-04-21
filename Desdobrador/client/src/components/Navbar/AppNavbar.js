@@ -3,7 +3,6 @@ import {
     Navbar,
     NavbarToggler,
     Nav,NavItem,
-    NavLink,
     NavbarBrand,
     Collapse
 
@@ -15,6 +14,7 @@ import Logout from './Logout'
 
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import UserPanel from './UserPanel'
 
 class AppNavbar extends Component {
     constructor(props){
@@ -74,7 +74,7 @@ class AppNavbar extends Component {
                             {
                                 this.props.authenticated ? 
 
-                                <NavLink disabled style={{color:"white"}}>Entrou como {this.props.user.name}</NavLink>
+                                <UserPanel name={this.props.user.name}/>
                                 
                                 :
                                 <NavItem>

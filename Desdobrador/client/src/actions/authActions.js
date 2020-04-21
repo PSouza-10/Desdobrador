@@ -7,7 +7,9 @@ import {
     LOGIN_FAIL,
     LOGOUT_SUCCESS,
     REGISTER_SUCCESS,
-    REGISTER_FAIL
+    REGISTER_FAIL,
+    DELETE_SUCCESS,
+    RESET
    
 } from './types';
 
@@ -91,6 +93,21 @@ export const logout = ()  => {
     }
 }
 
+export const deleteUser  = () => (dispatch,getState) => {
+    
+    axios.delete('/api/auth',tokenConfig(getState))
+    .then(res => {
+        dispatch({
+            type : DELETE_SUCCESS
+        })
+        dispatch({
+            type : RESET
+        })
+    }).catch( err => {
+        dispatch(returnErrors(err.response.data,err.response.status,'DELETE_FAIL'))
+    })
+
+} 
 
 export function tokenConfig (getState) {
 
