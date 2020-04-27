@@ -56,7 +56,7 @@ export default function (state = initialState, action ){
 }
 
 function conferir(matriz,resultado){
-    let ac = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    let ac = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 
   
 
