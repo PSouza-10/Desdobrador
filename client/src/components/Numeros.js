@@ -14,10 +14,29 @@ class Numeros extends Component {
             
 
             switch(n){
-                case 12 :
-                case 13 : return{
+                case 8 :return{
                     color : "white",
                     backgroundColor :"#1db1f5"
+                }
+                case 9 :return{
+                    color : "white",
+                    backgroundColor :"black"
+                }
+                case 10 :return{
+                    color : "white",
+                    backgroundColor :"brown"
+                }
+                case 11 :return{
+                    color : "white",
+                    backgroundColor :"#1db1f5"
+                }
+                case 12 :return{
+                    color : "white",
+                    backgroundColor :"green"
+                }
+                case 13 : return{
+                    color : "white",
+                    backgroundColor :"red"
                 }
                 case 14 : return{
                     color: "white",
