@@ -29,6 +29,7 @@ class MyGames extends Component {
             selectedGame : {
                 matrix : [[]],
                 vector : [],
+                _id : "",
                 name : "",
                 user : ""
             },
@@ -112,19 +113,20 @@ class MyGames extends Component {
 
         this.setState({
             selectedGame : {
-            matrix : [[]],
-            vector : [],
-            name : "",
-            user : ""
+                matrix : [[]],
+                vector : [],
+                name : "",
+                user : ""
             }
         })
     }
 
     visualizarJogo(){
-        const {matrix,vector} = this.state.selectedGame
+        const {matrix,vector,_id} = this.state.selectedGame
 
         const game = {
             matrix,
+            _id,
             vector,
             result:null
         }

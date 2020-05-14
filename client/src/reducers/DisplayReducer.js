@@ -8,6 +8,7 @@ const initialState = {
 
     matrix : [[]],
     vector : [],
+    _id : null,
     result : [],
     points : [],
     active : false
@@ -24,6 +25,7 @@ export default function (state = initialState, action ){
                 return{
                     matrix : action.payload.matrix,
                     vector : action.payload.vector,
+                    _id : action.payload._id,
                     result : action.payload.result,
                     points : conferir(action.payload.matrix,action.payload.result),
                     active : true
@@ -42,6 +44,7 @@ export default function (state = initialState, action ){
                     ...state,
                     matrix : action.payload.matrix,
                     vector : action.payload.vector,
+                    _id : action.payload._id,
                     points : conferir(action.payload.matrix,state.result),
                     active : true
                 }

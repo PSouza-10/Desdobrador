@@ -40,7 +40,8 @@ class MyRes extends Component {
         const game = {
             matrix : null,
             vector : null,
-            result : res
+            result : res,
+            _id : null
         }
 
         this.props.setDisplayGame(game)
