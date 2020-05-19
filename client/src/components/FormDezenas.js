@@ -36,6 +36,7 @@ class FormDezenas extends Component {
         this.sendNums = this.sendNums.bind(this)
         this.changeExtra = this.changeExtra.bind(this) 
         this.Limpar = this.Limpar.bind(this)
+        this.sendRes = this.sendRes.bind(this)
     }
 
     onChange(num){
@@ -71,6 +72,14 @@ class FormDezenas extends Component {
         })
     }
 
+    sendRes(){
+        let resultadoArray = this.state.resultado.split(',').map(x => {
+            return parseInt(x,10)
+        })
+
+        this.props.setDisplayGame({result:resultadoArray})
+    }
+
     sendNums(){
 
         let dezenas = this.state.nums.map(x =>{
@@ -95,6 +104,7 @@ class FormDezenas extends Component {
             matrix : mat,
             vector : dezenas,
             result : resultadoArray === [] ? null : resultadoArray
+          
         }
         
         this.props.setDisplayGame(game)
@@ -130,25 +140,25 @@ class FormDezenas extends Component {
                             <Input 
                             type="text" 
                             name="resultado"
-                            
+                            value={this.state.resultado}
                             onChange={this.changeExtra}
                             ></Input>
                             {this.props.authenticated ? 
                             
 
-                                <Row className="mt-1  justify-content-around">
-
+                            <Row className="mt-1  justify-content-around"onClick={this.sendRes()}>
+                                   
                                     <SaveRes res={this.state.resultado.split(',').map(x => {
                                         return parseInt(x,10)
                                     })}/>
 
                                     <MyRes />
-                                </Row>
-                           
+                            </Row>
+                                    
+                                    
                                 
-                                
-                                
-
+                                    
+                                    
                             : 
 
                             null

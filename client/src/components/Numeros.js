@@ -14,6 +14,7 @@ class Numeros extends Component {
             last : false,
             count : [0,0,0,0,0,0 ]        }
     }
+
     changeGame(e){
         let newGame
 
@@ -25,12 +26,13 @@ class Numeros extends Component {
                 newGame = i + n
             }
         })
- 
-        if (newGame === 0 ) this.setState({first : true, last : false})
-        else if (newGame === this.props.Games.length-1) this.setState({first : false, last : true})
-        else this.setState({first : false, last : false})
 
-        const game = this.props.Games[newGame]
+
+        const game = {
+            ...this.props.Games[newGame],
+            index : newGame
+        }
+
         this.props.setDisplayGame(game)
 
     }
@@ -51,7 +53,7 @@ class Numeros extends Component {
     componentDidUpdate(prevProps){
         if(prevProps !== this.props){
             this.countPoints(this.props.Display.points)
-        }
+        }  
     }
    
     render(){
@@ -106,13 +108,9 @@ class Numeros extends Component {
         return(
             this.props.Display.active ? 
             <div>
-                
-            
-                <div style={{maxHeight:"90vh",overflowY:'auto'}}>    
-                <Table bordered hover style={{width:'66vw'}}>
+                <Table bordered style={{width:'66vw'}} >
                     <tbody>
-                        
-                        {
+                    {
                             this.props.Display.result[0] ?
                             
                             <tr style={{backgroundColor:"blue",color:"white"}}>
@@ -121,7 +119,7 @@ class Numeros extends Component {
 
                                         this.props.Display.result.map((n,index) => (
 
-                                            <td style={{padding:"0rem",margin:"0px0px"}}>
+                                            <td >
                                                 {n }
                                             </td>
                                         ))
@@ -135,6 +133,15 @@ class Numeros extends Component {
 
                             null
                         }   
+                    </tbody>
+                </Table>
+                
+            
+                <div style={{maxHeight:"90vh",overflowY:'auto'}}>    
+                <Table bordered hover style={{width:'66vw'}}>
+                    <tbody>
+                        
+                        
                         {
                             
                             this.props.Display.matrix.length > 1 ? 
@@ -170,44 +177,47 @@ class Numeros extends Component {
                 </Table>
             
                 </div>
-                <div>
-                
-                <Button
-                    color = "success"
-                    className="mr-2"
-                    name = "-1"
-                    onClick={this.changeGame}
-                    disabled = {this.state.first}
-                >Anterior</Button>
-                <Button
-                    onClick={this.changeGame}
-                    color = "success"
-                    name ="1"
-                    disabled = {this.state.last}
-                >Próximo</Button>
-                
+                 
+                {
+                    this.props.Display._id ? 
+                <div className="d-flex justify-content-evenly">
+                    <Button
+                        color = "success"
+                        className="mr-2"
+                        name = "-1"
+                        onClick={this.changeGame}
+                        disabled = {this.props.Display.index === 0 ? true : false }
+                    >Anterior</Button>
+                    <Button
+                        onClick={this.changeGame}
+                        color = "success"
+                        name ="1"
+                        disabled = {this.props.Display.index === this.props.Games.length-1}
+                    >Próximo</Button>
+                    
+                    <div className="ml-3 lead">{this.props.Display.name}</div>   
+                </div>
+                 :
+                null
+                }
                 <Table>
-                    <tbody>
-                        <tr>
-                        {
-                            this.state.count.map( (n,i) => (
-                                <th>{i + 10}</th>
-                            ))
-                        }
-                        </tr>
-                        <tr>
+                        <tbody>
+                            <tr>
                             {
                                 this.state.count.map( (n,i) => (
-                                    <td>{n}</td>
+                                    <th>{i + 10}</th>
                                 ))
                             }
-                        </tr>
-                    </tbody>
-                </Table>
-                
-             
-     
-            </div>
+                            </tr>
+                            <tr>
+                                {
+                                    this.state.count.map( (n,i) => (
+                                        <td>{n}</td>
+                                    ))
+                                }
+                            </tr>
+                        </tbody>
+                    </Table>  
             </div>
             :
             null

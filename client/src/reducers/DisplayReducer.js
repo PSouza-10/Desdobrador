@@ -8,11 +8,12 @@ const initialState = {
 
     matrix : [[]],
     vector : [],
-    _id : null,
+    _id : "",
     result : [],
     points : [],
-    active : false
-  
+    active : false,
+    index : null,
+    name : ""
 }
 
 
@@ -28,7 +29,9 @@ export default function (state = initialState, action ){
                     _id : action.payload._id,
                     result : action.payload.result,
                     points : conferir(action.payload.matrix,action.payload.result),
-                    active : true
+                    active : true,
+                    index : 0,
+                    name : ""
                 }
             } 
             else if(!action.payload.matrix && !action.payload.vector){
@@ -37,6 +40,7 @@ export default function (state = initialState, action ){
                     result : action.payload.result,
                     points : conferir(state.matrix,action.payload.result),
                     active : true
+                   
                 }
             }
             else{
@@ -46,7 +50,9 @@ export default function (state = initialState, action ){
                     vector : action.payload.vector,
                     _id : action.payload._id,
                     points : conferir(action.payload.matrix,state.result),
-                    active : true
+                    active : true,
+                    index : action.payload.index,
+                    name : action.payload.name
                 }
             }
         case RESET : return {

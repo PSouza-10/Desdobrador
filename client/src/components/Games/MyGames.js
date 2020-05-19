@@ -32,7 +32,9 @@ class MyGames extends Component {
                 _id : "",
                 name : "",
                 user : ""
+                
             },
+            index : null,
             editModal : false,
             newName : "",
             msg : null
@@ -71,8 +73,8 @@ class MyGames extends Component {
 
    
 
-    selectGame(game){
-        this.setState({selectedGame : game})
+    selectGame(game,index){
+        this.setState({selectedGame : game,index})
     }
 
     onChange(e){
@@ -92,10 +94,10 @@ class MyGames extends Component {
 
             this.setState({
                 selectedGame : {
-                matrix : [[]],
-                vector : [],
-                name : "",
-                user : ""
+                    matrix : [[]],
+                    vector : [],
+                    name : "",
+                    user : ""
                 }
             })
 
@@ -122,13 +124,15 @@ class MyGames extends Component {
     }
 
     visualizarJogo(){
-        const {matrix,vector,_id} = this.state.selectedGame
+        const {matrix,vector,_id,name} = this.state.selectedGame
 
         const game = {
             matrix,
             _id,
             vector,
-            result:null
+            result:null,
+            index : this.state.index,
+            name  
         }
 
         this.props.setDisplayGame(game)
@@ -227,10 +231,10 @@ class MyGames extends Component {
                                 {
                                     
 
-                                    this.props.Games.map(game => (
+                                    this.props.Games.map((game,i) => (
                                         <ListGroupItem
                                             href="#" action tag="a" key={game.name}
-                                            onClick={this.selectGame.bind(this,game)}
+                                            onClick={this.selectGame.bind(this,game,i)}
                                         >{game.name + " (" + game.tipo +" dezenas)" }</ListGroupItem>
                                     ))
                                     
