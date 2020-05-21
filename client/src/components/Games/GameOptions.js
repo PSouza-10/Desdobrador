@@ -13,7 +13,7 @@ import {
 import {clearErrors} from '../../actions/errorActions'
 import {postGame} from '../../actions/gameActions'
 import PropTypes from 'prop-types'
-import MyGames from './MyGames';
+import MyGroups from './MyGroups'
 
 
 class Games extends Component {
@@ -114,7 +114,7 @@ class Games extends Component {
                     </ModalBody>
                 </Modal>
                 
-                <MyGames/>
+                <MyGroups/>
             </div>
             : <Alert color="danger">Entre em uma conta para salvar jogos</Alert>
            

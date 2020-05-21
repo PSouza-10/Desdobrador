@@ -30,7 +30,7 @@ export default function (state = initialState, action ){
             Results : edit(action.payload,state)
         }
         case RES_post : return {
-            Results : [...state.Results,action.payload]
+            Results : [action.payload,...state.Results]
         }
         case RES_delete_FAIL:
         case RES_post_FAIL : 

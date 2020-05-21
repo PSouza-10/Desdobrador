@@ -14,6 +14,7 @@ import {
 import axios from 'axios'
 import {tokenConfig} from './authActions'
 import { returnErrors } from './errorActions'
+import { setDisplayGame } from './displayActions'
 
 
 
@@ -82,6 +83,7 @@ export const editGame = (id,name) => (dispatch,getState) => {
                 type : GAME_edit,
                 payload : res.data
             })
+            dispatch(setDisplayGame(res.data))
         } 
             
         ).catch(err => {

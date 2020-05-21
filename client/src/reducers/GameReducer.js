@@ -31,14 +31,17 @@ export default function (state = initialState, action ){
             Games : action.payload,
             loading : false
         }
+       
         case GAME_post : return {
-            Games :[...state.Games,action.payload],
+            Games :[action.payload,...state.Games],
             loading : false
         }
+        
         case GAME_edit : return{
-            Games : [edit(action.payload._id,state),action.payload],
+            Games : [...edit(action.payload._id,state),action.payload],
             loading : false
         }
+        
         case GAME_delete : return {
             Games : state.Games.filter(g => g._id !== action.payload.id )
         }

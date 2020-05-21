@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const path = require('path')
 const config = require('config')
 const Games = require('./routes/api/Games')
+
 const cors = require('cors')
 const auth = require('./routes/api/auth')
 
@@ -38,6 +39,7 @@ mongoose.connect(db,{
 
 app.use('/api/jogos', Games)
 app.use('/api/auth', auth)
+
 
 
 //Setup production assets

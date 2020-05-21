@@ -30,3 +30,12 @@ export const DISPLAY_game = "DISPLAY_game"
 
 export const GET_ERRORS = 'GET_ERRORS';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
+
+export const GROUP_post = 'GROUP_post'
+export const GROUP_post_fail = 'GROUP_post_fail'
+export const GROUP_delete = 'GROUP_delete'
+export const GROUP_delete_fail = 'GROUP_delete_fail'
+export const GROUP_edit = 'GROUP_edit'
+export const GROUP_edit_fail = 'GROUP_edit_fail'
+export const GROUP_load = 'GROUP_load'
+export const GROUP_load_fail = 'GROUP_load_fail'

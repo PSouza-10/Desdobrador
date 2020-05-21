@@ -12,7 +12,9 @@ class Numeros extends Component {
         this.state = {
             first : false,
             last : false,
-            count : [0,0,0,0,0,0 ]        }
+            count : [0,0,0,0,0,0],
+            dezenas : 0        
+        }
     }
 
     changeGame(e){
@@ -25,6 +27,7 @@ class Numeros extends Component {
                 
                 newGame = i + n
             }
+            return null
         })
 
 
@@ -47,7 +50,15 @@ class Numeros extends Component {
             }
         });
 
-        this.setState({count :newCount})
+        let dezenas = 0
+        this.props.Display.vector.map(n =>{
+            if(this.props.Display.result.includes(n)){
+                dezenas++
+            }
+            return null
+        }) 
+
+        this.setState({count :newCount,dezenas})
     }
 
     componentDidUpdate(prevProps){
@@ -175,7 +186,7 @@ class Numeros extends Component {
                         
                     </tbody>
                 </Table>
-            
+                    
                 </div>
                  
                 {
@@ -195,7 +206,7 @@ class Numeros extends Component {
                         disabled = {this.props.Display.index === this.props.Games.length-1}
                     >Próximo</Button>
                     
-                    <div className="ml-3 lead">{this.props.Display.name}</div>   
+                    <div className="ml-3 lead">{this.props.Display.name}: {this.state.dezenas} acertos nas iniciais</div>   
                 </div>
                  :
                 null

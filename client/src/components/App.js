@@ -10,8 +10,8 @@ import {loadUser} from '../actions/authActions'
 import {Provider} from 'react-redux'
 import store from '../store'
 import Numeros from './Numeros';
-import GameOptions from './Games/GameOptions'
 
+import GameOptions from './Games/GameOptions'
 class  App extends React.Component {
 
   componentDidMount(){
@@ -30,7 +30,7 @@ class  App extends React.Component {
               <center>
 
               <FormDezenas />
-              <GameOptions />
+              <GameOptions/>
               </center>
             </Col>
             <Col xl="9">
