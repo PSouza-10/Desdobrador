@@ -30,11 +30,12 @@ const Group = (props) => {
 
     return(                                   
         <div>
-            <Badge
+            <Button
                 onClick={()=> setModal(!modal)}
                 size="xs"
                 color="primary"
-            >Editar</Badge>
+                style ={{marginLeft:"75%"}}
+            >Editar</Button>
         
             <Modal
                 size="xs"
@@ -49,7 +50,7 @@ const Group = (props) => {
                 }
                 }>Apagar Grupo</Badge></ModalHeader>
                 <ModalBody>
-                    <ListGroup>
+                    <ListGroup style={{maxHeight:"70vh",overflowY:'auto'}}>
                         {
                             games.map(g => (
                                 <ListGroupItem
