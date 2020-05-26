@@ -43,10 +43,6 @@ class FormDezenas extends Component {
 
         let isrepeat = this.state.nums.includes(num)
         
-        if(num === '26') { 
-            this.Limpar()
-        }else {  
-
             if(isrepeat){
                 let arr = this.state.nums.filter(n => n !== num)
 
@@ -60,7 +56,7 @@ class FormDezenas extends Component {
                     quantos : prev.quantos + 1
                 }))
             }
-        }
+        
         
     }
     
@@ -70,14 +66,12 @@ class FormDezenas extends Component {
         this.setState({
             [e.target.name] : e.target.value
         })
+
+        
     }
 
     sendRes(){
-        let resultadoArray = this.state.resultado.split(',').map(x => {
-            return parseInt(x,10)
-        })
-
-        this.props.setDisplayGame({result:resultadoArray})
+       
     }
 
     sendNums(){
@@ -96,21 +90,18 @@ class FormDezenas extends Component {
         }
         
         
-        let resultadoArray = this.state.resultado.split(',').map(x => {
-            return parseInt(x,10)
-        })
-
-        const game = {
+        this.props.setDisplayGame({
             matrix : mat,
             vector : dezenas,
-            result : resultadoArray === [] ? null : resultadoArray
-          
+            
+            
+        })
+
+        this.sendRes()
+        
         }
         
-        this.props.setDisplayGame(game)
-
-        
-    }
+    
 
 
     Limpar(){
@@ -118,21 +109,51 @@ class FormDezenas extends Component {
         this.setState({nums:[],quantos : 0})
     }
      
+    componentDidUpdate(prevProps , prevState){
+        if(prevProps.selectRow !== this.props.selectRow){
+            let q = 0
+            document.querySelectorAll('input[type=checkbox]').forEach( el =>{
+                let n = parseInt(el.id,10)
     
+
+                if(this.props.selectRow.includes(n) && n !== 0){
+                    q++
+                    el.checked = true
+                
+                }else{
+                    el.checked = false
+                }
+
+            } );
+            this.setState({
+                nums:this.props.selectRow.filter(n=>n!==0),
+                quantos: q
+            })
+        }
+
+        if(prevState.resultado !== this.state.resultado){
+            let res = this.state.resultado.split(',').map(x => {
+            
+                if(parseInt(x,10) !== null) return parseInt(x,10)            
+            
+            })
+
+            this.props.setDisplayGame({result:res})
+        }
+    }
+
     render() {
 
         const dezenas = [
-            ['1','2','3','4','5'],
-            ['6','7','8','9','10'],
-            ['11','12','13','14','15'],
-            ['16','17','18','19','20'],
-            ['21','22','23','24','25']
+            [1,2,3,4,5],
+            [6,7,8,9,10],
+            [11,12,13,14,15],
+            [16,17,18,19,20],
+            [21,22,23,24,25]
         ]
     
         return (
             <center>
-                
-
                         <FormGroup className="ml-2" >
                             <Label for="resultado">
                                 Insira o resultado para comparação (entre vírgulas):
@@ -141,12 +162,20 @@ class FormDezenas extends Component {
                             type="text" 
                             name="resultado"
                             value={this.state.resultado}
-                            onChange={this.changeExtra}
+                            onChange={e => {
+                                this.changeExtra(e)
+                               
+
+                                    
+                                
+                            }}
+                           
                             ></Input>
-                            {this.props.authenticated ? 
+                        </FormGroup>
+                        {this.props.authenticated ? 
                             
 
-                            <Row className="mt-1  justify-content-around"onClick={this.sendRes()}>
+                            <Row className="mt-1 ml-2  justify-content-around"   >
                                    
                                     <SaveRes res={this.state.resultado.split(',').map(x => {
                                         return parseInt(x,10)
@@ -154,17 +183,12 @@ class FormDezenas extends Component {
 
                                     <MyRes />
                             </Row>
-                                    
-                                    
-                                
-                                    
-                                    
+                                            
                             : 
 
                             null
                             
                             }
-                        </FormGroup>
 
                         <Container>
 
@@ -197,7 +221,7 @@ class FormDezenas extends Component {
                                                             id={n}
                                                             key={n}
                                                             label={n} 
-                                                            onChange={this.onChange.bind(this,n)}
+                                                            onChange={ () => this.onChange(n)}
                                                         />
                                                                                                     
                                                     </td>
@@ -249,11 +273,12 @@ class FormDezenas extends Component {
 FormDezenas.propTypes = {
     authenticated : PropTypes.bool,
     setDisplayGame : PropTypes.func.isRequired,
-     
+    selectRow : PropTypes.array,
 }
 
 const mapStateToProps = state => ({
-    authenticated : state.Auth.authenticated
+    authenticated : state.Auth.authenticated,
+    selectRow : state.Display.numbers
 });
 
 

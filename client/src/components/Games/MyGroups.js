@@ -164,7 +164,7 @@ const MyGroups = () => {
                                         </Collapse>
                                         {
                                             groups.map((group,i)=>(
-                                                <div>
+                                                <div key={i}>
                                                     <ListGroupItem onClick={() => controlCollapse(i)}
                                                         href="#" action tag="a" key={group.name}
                                                         style={

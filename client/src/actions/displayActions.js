@@ -1,11 +1,13 @@
 import {
     
-    DISPLAY_game
+    DISPLAY_game,
+    SET_NUMBERS
 
 } from './types'
 
 
 export const setDisplayGame = ({matrix,vector,result,_id,index,name}) => dispatch => {
+    
     dispatch({
         type : DISPLAY_game,
         payload : {
@@ -20,4 +22,10 @@ export const setDisplayGame = ({matrix,vector,result,_id,index,name}) => dispatc
     })
 }
 
-
+export const SetNumbers = (arr) => dispatch =>{
+   
+    dispatch({
+        type:SET_NUMBERS,
+        payload : arr
+    })
+}

@@ -37,14 +37,11 @@ class MyRes extends Component {
 
     exportarResultado(res){
 
-        const game = {
-            matrix : null,
-            vector : null,
-            result : res,
-            _id : null
-        }
+         
 
-        this.props.setDisplayGame(game)
+        this.props.setDisplayGame({       
+            result : res    
+        })
         this.toggleModal()
     }
     
@@ -101,7 +98,7 @@ class MyRes extends Component {
                                     
 
                                     this.props.Res.map((result,index) => (
-                                        <Row className="mb-2">
+                                        <Row className="mb-2" key={index}>
                                             <Card key={index} >
                                             <CardHeader>
                                                 {result.name}

@@ -73,14 +73,14 @@ class SaveRes extends Component {
         
         const name = this.state.resName
 
-        const game = {
+        const result = {
             vector,
             name
           
         }
 
 
-        this.props.postRes(game)
+        this.props.postRes(result)
         
        
         

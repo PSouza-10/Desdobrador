@@ -1,7 +1,8 @@
 import { 
     
     DISPLAY_game,
-    RESET
+    RESET,
+    SET_NUMBERS
 } from '../actions/types'
 
 const initialState = {
@@ -13,7 +14,8 @@ const initialState = {
     points : [],
     active : false,
     index : null,
-    name : ""
+    name : "",
+    numbers : []
 }
 
 
@@ -22,28 +24,32 @@ export default function (state = initialState, action ){
     
     switch(action.type){
         case DISPLAY_game :
-            if(action.payload.matrix  && action.payload.vector && action.payload.result){
+            if(action.payload.matrix  && action.payload.vector &&  action.payload.result){
+               
                 return{
+                    ...state,
                     matrix : action.payload.matrix,
                     vector : action.payload.vector,
                     _id : action.payload._id,
-                    result : action.payload.result,
+                    result : action.payload.result[0] !== null ? action.payload.result : state.result ,
                     points : conferir(action.payload.matrix,action.payload.result),
                     active : true,
                     index : 0,
                     name : ""
                 }
             } 
-            else if(!action.payload.matrix && !action.payload.vector){
+            else if(!action.payload.matrix && !action.payload.vector ){
+              
                 return{
                     ...state,
-                    result : action.payload.result,
+                    result : action.payload.result[0] !== null ? action.payload.result : state.result,
                     points : conferir(state.matrix,action.payload.result),
                     active : true
                    
                 }
             }
             else{
+                
                 return {
                     ...state,
                     matrix : action.payload.matrix,
@@ -55,6 +61,15 @@ export default function (state = initialState, action ){
                     name : action.payload.name
                 }
             }
+        
+        case SET_NUMBERS : 
+          
+        return{
+            ...state,
+            result : state.result,
+            numbers : action.payload
+        }
+        
         case RESET : return {
             state : initialState
         }

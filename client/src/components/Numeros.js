@@ -1,6 +1,6 @@
 import React , {Component} from 'react';
 import{Table, Button} from 'reactstrap'
-import {setDisplayGame} from '../actions/displayActions'
+import {setDisplayGame,SetNumbers} from '../actions/displayActions'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 
@@ -62,9 +62,13 @@ class Numeros extends Component {
     }
 
     componentDidUpdate(prevProps){
-        if(prevProps !== this.props){
+        if(prevProps.Display.points !== this.props.Display.points){
             this.countPoints(this.props.Display.points)
         }  
+    }
+
+    sendNums(arr){
+        this.props.SetNumbers(arr)
     }
    
     render(){
@@ -114,8 +118,6 @@ class Numeros extends Component {
             }
        }
 
-
-
         return(
             this.props.Display.active ? 
             <div>
@@ -159,7 +161,9 @@ class Numeros extends Component {
 
                             this.props.Display.matrix.map((v,index) => (
                                 
-                                <tr >
+                                <tr style={{cursor : "pointer"}}
+                                    onClick={() => this.sendNums(this.props.Display.matrix[index])}
+                                >
                                     <td style={{
                                         backgroundColor : "#333333",
                                         color : "white"
@@ -216,14 +220,14 @@ class Numeros extends Component {
                             <tr>
                             {
                                 this.state.count.map( (n,i) => (
-                                    <th>{i + 10}</th>
+                                    <th key={i+10}>{i + 10}</th>
                                 ))
                             }
                             </tr>
                             <tr>
                                 {
                                     this.state.count.map( (n,i) => (
-                                        <td>{n}</td>
+                                        <td key={i}>{n}</td>
                                     ))
                                 }
                             </tr>
@@ -239,8 +243,8 @@ class Numeros extends Component {
 Numeros.propTypes = {
     Display : PropTypes.object,
     Games : PropTypes.array,
-    setDisplayGame : PropTypes.func.isRequired
-
+    setDisplayGame : PropTypes.func.isRequired,
+    SetNumbers : PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -248,4 +252,4 @@ const mapStateToProps = state => ({
   Games : state.Games.Games
 });
 
-export default connect(mapStateToProps,{setDisplayGame})(Numeros)
+export default connect(mapStateToProps,{setDisplayGame,SetNumbers})(Numeros)

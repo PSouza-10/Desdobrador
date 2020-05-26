@@ -27,6 +27,7 @@ export const RES_delete = "RES_delete"
 export const RES_delete_FAIL = "RES_delete_FAIL"
 
 export const DISPLAY_game = "DISPLAY_game"
+export const SET_NUMBERS ="SET_NUMBERS"
 
 export const GET_ERRORS = 'GET_ERRORS';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
