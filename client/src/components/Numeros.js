@@ -1,6 +1,6 @@
 import React , {Component} from 'react';
 import{Table, Button} from 'reactstrap'
-import {setDisplayGame,SetNumbers} from '../actions/displayActions'
+import {setDisplayGame,SetNumbers,clearRow} from '../actions/displayActions'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 
@@ -69,6 +69,7 @@ class Numeros extends Component {
 
     sendNums(arr){
         this.props.SetNumbers(arr)
+        
     }
    
     render(){
@@ -244,7 +245,8 @@ Numeros.propTypes = {
     Display : PropTypes.object,
     Games : PropTypes.array,
     setDisplayGame : PropTypes.func.isRequired,
-    SetNumbers : PropTypes.func.isRequired
+    SetNumbers : PropTypes.func.isRequired,
+    clearRow :PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
@@ -252,4 +254,4 @@ const mapStateToProps = state => ({
   Games : state.Games.Games
 });
 
-export default connect(mapStateToProps,{setDisplayGame,SetNumbers})(Numeros)
+export default connect(mapStateToProps,{setDisplayGame,SetNumbers,clearRow})(Numeros)

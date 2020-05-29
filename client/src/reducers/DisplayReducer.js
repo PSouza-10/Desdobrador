@@ -63,7 +63,7 @@ export default function (state = initialState, action ){
             }
         
         case SET_NUMBERS : 
-          
+         
         return{
             ...state,
             result : state.result,

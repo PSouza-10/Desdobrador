@@ -29,3 +29,10 @@ export const SetNumbers = (arr) => dispatch =>{
         payload : arr
     })
 }
+
+export const clearRow = () => dispatch => {
+    dispatch({
+        type: SET_NUMBERS,
+        payload : [0]
+    })
+}

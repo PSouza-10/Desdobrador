@@ -16,7 +16,7 @@ import PropTypes from 'prop-types'
 import {desdobrador16,desdobrar18} from '../func'
 import SaveRes from './Results/SaveRes'
 import MyRes from './Results/MyRes'
-import {setDisplayGame} from '../actions/displayActions'
+import {setDisplayGame,clearRow} from '../actions/displayActions'
 
 
 
@@ -36,7 +36,7 @@ class FormDezenas extends Component {
         this.sendNums = this.sendNums.bind(this)
         this.changeExtra = this.changeExtra.bind(this) 
         this.Limpar = this.Limpar.bind(this)
-        this.sendRes = this.sendRes.bind(this)
+        this.update = this.update.bind(this)
     }
 
     onChange(num){
@@ -70,9 +70,7 @@ class FormDezenas extends Component {
         
     }
 
-    sendRes(){
-       
-    }
+    
 
     sendNums(){
 
@@ -97,7 +95,7 @@ class FormDezenas extends Component {
             
         })
 
-        this.sendRes()
+       
         
         }
         
@@ -108,9 +106,18 @@ class FormDezenas extends Component {
         document.querySelectorAll('input[type=checkbox]').forEach( el => el.checked = false );
         this.setState({nums:[],quantos : 0})
     }
-     
+    
+    update(arr,quantos){
+        this.setState({
+            nums:arr,
+            quantos: quantos
+        })
+        setTimeout(this.props.clearRow(),2000)
+    }
+
     componentDidUpdate(prevProps , prevState){
-        if(prevProps.selectRow !== this.props.selectRow){
+        if(prevProps.selectRow !== this.props.selectRow && this.props.selectRow[0] !== 0){
+            
             let q = 0
             document.querySelectorAll('input[type=checkbox]').forEach( el =>{
                 let n = parseInt(el.id,10)
@@ -125,10 +132,10 @@ class FormDezenas extends Component {
                 }
 
             } );
-            this.setState({
-                nums:this.props.selectRow.filter(n=>n!==0),
-                quantos: q
-            })
+
+            this.update(this.props.selectRow.filter(n=>n!==0),q)
+        
+            
         }
 
         if(prevState.resultado !== this.state.resultado){
@@ -140,6 +147,7 @@ class FormDezenas extends Component {
 
             this.props.setDisplayGame({result:res})
         }
+       
     }
 
     render() {
@@ -274,6 +282,8 @@ FormDezenas.propTypes = {
     authenticated : PropTypes.bool,
     setDisplayGame : PropTypes.func.isRequired,
     selectRow : PropTypes.array,
+    clearRow : PropTypes.func.isRequired,
+   
 }
 
 const mapStateToProps = state => ({
@@ -282,4 +292,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps,{setDisplayGame})(FormDezenas)
+export default connect(mapStateToProps,{setDisplayGame,clearRow})(FormDezenas)
