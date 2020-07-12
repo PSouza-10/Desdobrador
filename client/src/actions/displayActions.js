@@ -1,38 +1,37 @@
-import {
-    
-    DISPLAY_game,
-    SET_NUMBERS
+import { DISPLAY_game, SET_NUMBERS } from "./types"
 
-} from './types'
-
-
-export const setDisplayGame = ({matrix,vector,result,_id,index,name}) => dispatch => {
-    
-    dispatch({
-        type : DISPLAY_game,
-        payload : {
-            matrix,
-            _id,
-            vector,
-            result,
-            index,
-            name
-            
-        }
-    })
+export const setDisplayGame = ({
+	matrix,
+	vector,
+	result,
+	_id,
+	index,
+	name,
+}) => dispatch => {
+	dispatch({
+		type: DISPLAY_game,
+		payload: {
+			matrix,
+			_id,
+			vector,
+			result,
+			index,
+			name,
+		},
+	})
 }
 
-export const SetNumbers = (arr) => dispatch =>{
-   
-    dispatch({
-        type:SET_NUMBERS,
-        payload : arr
-    })
+export const SetNumbers = arr => dispatch => {
+	console.log(arr)
+	dispatch({
+		type: SET_NUMBERS,
+		payload: arr,
+	})
 }
 
 export const clearRow = () => dispatch => {
-    dispatch({
-        type: SET_NUMBERS,
-        payload : [0]
-    })
+	dispatch({
+		type: SET_NUMBERS,
+		payload: [0],
+	})
 }

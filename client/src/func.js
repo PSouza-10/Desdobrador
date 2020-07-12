@@ -1,166 +1,105 @@
-export function desdobrador16 (dezenas,numExtra){
-
-var matriz = []
-var adicional = numExtra
-
-matriz.push(dezenas)
-matriz.push(trocarDezenas(dezenas))
-
-let desdobramento = desdobrar(matriz[1])
-
-for(let z = 0;z <=6; z++){
-    matriz.push(desdobramento[z])
+function alinhar(matrix) {
+	return matrix[0].map((_, colIndex) => matrix.map(row => row[colIndex]))
 }
 
-let reforco = reforcar(matriz,3)
+function trocarDezenas(arr) {
+	let newArray = []
 
-for(let o = 0; o <= 5; o++){
-    matriz.push(reforco[o])
+	let lastIndex = arr.length - 1
+
+	for (
+		let column = 0, nextColumn = 1;
+		column <= lastIndex;
+		column += 2, nextColumn += 2
+	) {
+		if (column !== lastIndex) {
+			let aux = arr[nextColumn]
+			newArray[nextColumn] = arr[column]
+			newArray[column] = aux
+		} else {
+			newArray[column] = arr[column]
+		}
+	}
+
+	return newArray
 }
 
-matriz[15] = []
-
-for(let f = 0;f <= 15; f++){
-    matriz[15].push(adicional)
+function dezenasDe2aoFim(arr) {
+	return [...arr.slice(2, arr.length), arr[0], arr[1]]
 }
 
-return alinhar(matriz)
+function desdobrar(dezenasTrocadas, dezenasIniciais) {
+	let matrix = [dezenasIniciais, dezenasTrocadas]
 
+	const casaDoUltimonumero = dezenasTrocadas.length - 1
+	let ultimoNumero = dezenasIniciais[casaDoUltimonumero]
+	let aux = 1
+
+	while (matrix[aux][0] !== ultimoNumero) {
+		// console.log(matrix[aux])
+		matrix = [...matrix, dezenasDe2aoFim(matrix[aux])]
+		aux++
+	}
+
+	return matrix
 }
 
-export function desdobrar18 (dezenas,numExtra){
-    var matriz = []
-    var adicional = numExtra
+function reforcarEgirar(matriz, numeroDeDezenas) {
+	let alinhada = alinhar(matriz)
+	let len = alinhada[0].length
 
-    matriz.push(dezenas)
+	const tamanhoDaLinha = numeroDeDezenas % 2 === 0 ? 16 : numeroDeDezenas - 1
 
-    
-    matriz.push(trocarDezenas(dezenas))
-    
-    let desdobramento = desdobrar(matriz[1])
+	const index = len - (tamanhoDaLinha - len - 1) //pegar o index a partir do qual cortar
 
-    for(let z = 0;z <=7; z++){
-        matriz.push(desdobramento[z])
-    }
+	for (
+		let line = 0, nextLine = 1;
+		line < alinhada.length;
+		line += 2, nextLine += 2
+	) {
+		if (line !== alinhada.length - 1) {
+			alinhada[line] = [
+				...alinhada[line],
+				...alinhada[nextLine].slice(index, len),
+			]
+			alinhada[nextLine] = [
+				...alinhada[nextLine],
+				...alinhada[line].slice(index, len),
+			]
+		} else {
+			alinhada[line] = [
+				...alinhada[line],
+				...alinhada[line - 1].slice(index, len),
+			]
+		}
+	}
 
-   
-    let reforco = reforcar(matriz,5)
-    
-    for(let o = 0; o <= 4; o++){
-        matriz.push(reforco[o])
-    }
-    
-    
-    matriz[15] = []
-
-    for(let f = 0;f <= 17; f++){
-        matriz[15].push(adicional)
-    }
-    
-    return alinhar(matriz)
+	return alinhada
 }
 
-function alinhar (arr){
-    let t = arr[0].length
-    let array = []
-    let matrix = []
-    if(t === 18){
-        for(let k = 0; k < t ; k++){
-            for(let g = 0; g < t-2;g++ ){
-                array.push(arr[g][k])
-            }
-            matrix.push(array)
-            array = []
-        }
-    }else{
-        for(let k = 0;k<=15;k++){
-            for(let g = 0;g <= 15;g++){
-                array.push(arr[g][k])
-            }
-            matrix.push(array)
-            array = []
-        }
-    }
-    
-    return matrix
+function aplicarEnchimento(matriz, enchimento) {
+	let novaMatriz = matriz.map(line => {
+		return [...line, enchimento]
+	})
+	return novaMatriz
 }
 
-function trocarDezenas (arr){
-    
-    let newArr = []
-    
-    let l = arr.length-1
+export default function Desdobrador(dezenas, enchimento) {
+	let numeroDeDezenas = dezenas.length
+	if (numeroDeDezenas % 2 !== 0) {
+		enchimento = dezenas[numeroDeDezenas - 1]
+		dezenas = dezenas.slice(0, numeroDeDezenas - 1)
+	}
 
-    for(let i=0,j=1;i < l;i+=2,j+=2){
-     
-        let aux = arr[j]
-        newArr[j] = arr[i]
-        newArr[i] = aux
-        
-    }
+	const trocadas = trocarDezenas(dezenas)
 
+	const desdobradas = desdobrar(trocadas, dezenas)
 
-    return newArr;
+	let matrix = reforcarEgirar(desdobradas, numeroDeDezenas)
+
+	matrix = aplicarEnchimento(matrix, enchimento)
+
+	return matrix
 }
 
-function take(arr1){
-    
-    
-
-    let newArr = []
-    let aux = arr1[0]
-    let aux2 = arr1[1]
-    
-    for(let i=2,j=0;i < arr1.length && j < arr1.length;i++,j++){
-        
-        newArr[j] = arr1[i] 
-
-        
-    }
-
-    newArr[arr1.length-2] = aux
-    newArr[arr1.length-1] = aux2
-
-    return newArr
-}
-
-function desdobrar (arr) {
-    
-    let newArr = []
-    let aux = arr.length === 18 ? 6 : 5
-    newArr.push(take(arr))
-    
-    let auxArr = newArr[0]
-    for(let p = 0; p <= aux; p++){
-
-        if(p===0){
-
-            newArr.push(take(auxArr))
-
-        }else{
-
-            newArr.push(take(newArr[p]))
-        }
-        
-    }
-    return newArr
-}
-
-function reforcar(arr,linha){
-    
-    let newArr= []
-
-    let f = linha === 3 ? 8 : 9
-
-    for(let x = linha;x<=f;x++){    
-
-        
-        newArr.push(trocarDezenas(arr[x]))
-
-    }
-    
-    
-    return newArr
-    
-}
-
+Desdobrador([1, 2, 3, 4, 5, 6])

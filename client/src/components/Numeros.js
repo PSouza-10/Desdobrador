@@ -71,11 +71,6 @@ class Numeros extends Component {
 	render() {
 		function acStyle(n) {
 			switch (n) {
-				case 8:
-					return {
-						color: "black",
-						backgroundColor: "white",
-					}
 				case 9:
 					return {
 						color: "white",
@@ -94,7 +89,7 @@ class Numeros extends Component {
 				case 12:
 					return {
 						color: "white",
-						backgroundColor: "orange",
+						backgroundColor: "lightblue",
 					}
 				case 13:
 					return {
@@ -109,12 +104,12 @@ class Numeros extends Component {
 				case 15:
 					return {
 						color: "white",
-						backgroundColor: "#ffbf00",
+						backgroundColor: "#d4ad00",
 					}
 				default:
 					return {
 						color: "black",
-						backgroundColor: "grey",
+						backgroundColor: "#dedede",
 					}
 			}
 		}
