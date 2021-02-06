@@ -88,7 +88,7 @@ class Games extends Component {
     render() {
     return (
             this.props.authenticated ?
-            <div>
+            <center>
                 <Button
                     color="success"
                     onClick={this.toggleModal}
@@ -115,7 +115,7 @@ class Games extends Component {
                 </Modal>
                 
                 <MyGroups/>
-            </div>
+            </center>
             : <Alert color="danger">Entre em uma conta para salvar jogos</Alert>
            
             

@@ -1,7 +1,7 @@
 {
-  "name": "psychohelp",
+  "name": "desdobrador",
   "version": "1.0.0",
-  "description": "App for psichological evaluation and emotional support",
+  "description": "Desdobrador de dezenas para jogos da Lotofácil, com funcionalidade de editar e organizar os desdobramentos.",
   "main": "server.js",
   "scripts": {
     "server": "nodemon server.js",
