@@ -4,6 +4,47 @@
 
 Desdobrador de dezenas para jogos da [Lotofácil](http://loterias.caixa.gov.br/wps/portal/loterias/landing/lotofacil/), com funcionalidade de editar e organizar os desdobramentos. Aprenda mais sobre desdobramentos [aqui](https://www.somatematica.com.br/lotofacilFechamentos.php).
 
+## Configuração
+
+Em seu terminal
+
+```bash
+git init
+
+git clone https://github.com/PSouza-10/Desdobrador.git
+
+cd Desdobrador
+
+# Com yarn
+
+yarn
+cd client
+yarn
+
+# Com npm 
+
+npm install
+cd client
+npm install
+
+# Iniciar backend e frontend
+
+yarn run dev
+
+#ou
+
+npm run dev
+```
+
+Após isso, na pasta `config` localizada na raiz do projeto, crie o arquivo `connectDB.json` com o seguinte conteúdo, inserindo sua URI do MongoDB e chave de autenticação :
+
+```json
+{
+    "Database":"<Sua URI MongoDB>",
+    "jwtSecret": "<Chave de autenticação JWT>"
+}
+```
+
 ## Objetivo
 
 Facilitar o gerenciamento e análise de jogos criados com a estratégia de desdobramento para a loteria Lotofácil, abrangendo os casos mais comuns de de jogos, como forma de aprendizado na Stack MERN. 
