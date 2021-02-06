@@ -1,10 +1,10 @@
-export const escolherCotacao = numeroDeDezenas => {
+const escolherCotacao = numeroDeDezenas => {
 	if (numeroDeDezenas >= 18) return "18"
 	else if (numeroDeDezenas <= 15) return "15"
 	else return `${numeroDeDezenas}`
 }
 
-export const calcularLucro = (matriz, pontos) => {
+const calcularLucro = (matriz, pontos) => {
 	let precoPorLinha = []
 
 	matriz.map(line => {
@@ -50,3 +50,5 @@ let cotacao = {
 	"17": 340,
 	"18": 2040,
 }
+
+module.exports = calcularLucro
