@@ -36,7 +36,7 @@ yarn run dev
 npm run dev
 ```
 
-Após isso, na pasta `config` localizada na raiz do projeto, crie o arquivo `connectDB.json` com o seguinte conteúdo, inserindo sua URI do MongoDB e chave de autenticação :
+Após isso, crie uma pasta `config` na raiz do projeto, crie o arquivo `default.json` com o seguinte conteúdo, inserindo sua URI do MongoDB e chave de autenticação :
 
 ```json
 {
