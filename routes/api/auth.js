@@ -25,7 +25,7 @@ router.post("/", (req, res) => {
 
       jwt.sign(
         { id: user.id },
-        process.env.Database,
+        process.env.jwtSecret,
         { expiresIn: "8 hours" },
         (err, token) => {
           if (err) throw err;
@@ -67,7 +67,7 @@ router.post("/user", (req, res) => {
         NewUser.save().then((New) => {
           jwt.sign(
             { id: New.id },
-            process.env.Database,
+            process.env.jwtSecret,
             { expiresIn: "8 hours" },
             (err, token) => {
               if (err) throw err;

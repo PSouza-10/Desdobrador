@@ -7,7 +7,7 @@ function auth(req, res, next) {
   if (!token) return res.status(401).json({ msg: "Autentication failed" });
 
   try {
-    const decoded = jwt.verify(token, process.env.Database);
+    const decoded = jwt.verify(token, process.env.jwtSecret);
 
     req.user = decoded;
 
