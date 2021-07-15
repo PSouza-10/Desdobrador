@@ -1,7 +1,8 @@
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
-const config = require("config");
+
 const Games = require("./routes/api/Games");
 
 const cors = require("cors");
@@ -21,7 +22,7 @@ var corsOptions = {
 app.use(cors(corsOptions));
 
 //Configure database
-const db = config.get("Database") || process.env.DB;
+const db = process.env.Database;
 
 //Connect to Database
 mongoose
